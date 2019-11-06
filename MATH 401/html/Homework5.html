@@ -1,0 +1,467 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Homework5</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-21"><meta name="DC.source" content="Homework5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">9.1</a></li><li><a href="#3">10.1</a></li><li><a href="#4">10.4</a></li><li><a href="#5">10.11</a></li></ul></div><pre class="codeinput"><span class="comment">% Zain Bhaila</span>
+<span class="comment">% Math 401</span>
+<span class="comment">% Homework 5</span>
+</pre><h2 id="2">9.1</h2><pre class="codeinput"><span class="comment">% on seperate sheet</span>
+syms <span class="string">x</span>;
+A = [ -1 0 2 2 2 ; 0 2 3 0 1 ; 1 2 -2 1 2]
+C = transpose(A)
+B = A*C
+y = det(B - x * eye(3))
+z = double(solve(y == 0, x))
+s = sqrt(z)
+[T,E] = eig(B)
+T = T*-1
+v1 = C * T(:,3)/norm(C * T(:,3))
+v2 = C * T(:,2)/norm(C * T(:,2))
+v3 = C * T(:,1)/norm(C * T(:,1))
+[U,S,V] = svd(A)
+</pre><pre class="codeoutput">
+A =
+
+    -1     0     2     2     2
+     0     2     3     0     1
+     1     2    -2     1     2
+
+
+C =
+
+    -1     0     1
+     0     2     2
+     2     3    -2
+     2     0     1
+     2     1     2
+
+
+B =
+
+    13     8     1
+     8    14     0
+     1     0    14
+
+ 
+y =
+ 
+- x^3 + 41*x^2 - 495*x + 1638
+ 
+
+z =
+
+   14.0000
+    5.4223
+   21.5777
+
+
+s =
+
+    3.7417
+    2.3286
+    4.6452
+
+
+T =
+
+    0.7287    0.0000   -0.6849
+   -0.6796   -0.1240   -0.7230
+   -0.0849    0.9923   -0.0904
+
+
+E =
+
+    5.4223         0         0
+         0   14.0000         0
+         0         0   21.5777
+
+
+T =
+
+   -0.7287   -0.0000    0.6849
+    0.6796    0.1240    0.7230
+    0.0849   -0.9923    0.0904
+
+
+v1 =
+
+   -0.1280
+    0.3502
+    0.7229
+    0.3143
+    0.4894
+
+
+v2 =
+
+   -0.2652
+   -0.4641
+    0.6298
+   -0.2652
+   -0.4972
+
+
+v3 =
+
+    0.3494
+    0.6567
+    0.1767
+   -0.5894
+   -0.2610
+
+
+U =
+
+    0.6849         0   -0.7287
+    0.7230   -0.1240    0.6796
+    0.0904    0.9923    0.0849
+
+
+S =
+
+    4.6452         0         0         0         0
+         0    3.7417         0         0         0
+         0         0    2.3286         0         0
+
+
+V =
+
+   -0.1280    0.2652    0.3494    0.6403    0.6175
+    0.3502    0.4641    0.6567   -0.0176   -0.4801
+    0.7229   -0.6298    0.1767    0.1601    0.1544
+    0.3143    0.2652   -0.5894    0.6051   -0.3427
+    0.4894    0.4972   -0.2610   -0.4450    0.4970
+
+</pre><h2 id="3">10.1</h2><pre class="codeinput">p1 = [1 ; 2] <span class="comment">% points</span>
+p2 = [4 ; 3]
+p3 = [-1 ; -3]
+p4 = [-5 ; -8]
+hold <span class="string">on</span>;
+axis([-10 10 -10 10])
+scatter(p1(1,1), p1(2,1)) <span class="comment">% plot points</span>
+scatter(p2(1,1), p2(2,1))
+scatter(p3(1,1), p3(2,1))
+scatter(p4(1,1), p4(2,1))
+A= [p1 p2 p3 p4] <span class="comment">% matrix of points</span>
+M = mean(A, 2) <span class="comment">% average of points</span>
+C = A - M <span class="comment">% center matrix</span>
+[U,S,V] = svd(C) <span class="comment">% SVD of centered matrix</span>
+<span class="comment">% variance is greatest in direction of the first column of U</span>
+plot([0 ; U(1,1) * 20], [0 ; U(2,1) * 20] , <span class="string">'k'</span>) <span class="comment">% plot variance line</span>
+plot([0 ; U(1,1) * -20], [0 ; U(2,1) * -20] , <span class="string">'k'</span>)
+</pre><pre class="codeoutput">
+p1 =
+
+     1
+     2
+
+
+p2 =
+
+     4
+     3
+
+
+p3 =
+
+    -1
+    -3
+
+
+p4 =
+
+    -5
+    -8
+
+
+A =
+
+     1     4    -1    -5
+     2     3    -3    -8
+
+
+M =
+
+   -0.2500
+   -1.5000
+
+
+C =
+
+    1.2500    4.2500   -0.7500   -4.7500
+    3.5000    4.5000   -1.5000   -6.5000
+
+
+U =
+
+   -0.5938   -0.8046
+   -0.8046    0.5938
+
+
+S =
+
+   10.8608         0         0         0
+         0    1.3390         0         0
+
+
+V =
+
+   -0.3276    0.8009    0.2357    0.4423
+   -0.5657   -0.5583   -0.0267    0.6062
+    0.1521   -0.2145    0.9647   -0.0130
+    0.7412   -0.0281   -0.1142    0.6608
+
+</pre><img vspace="5" hspace="5" src="Homework5_01.png" alt=""> <h2 id="4">10.4</h2><pre class="codeinput"><span class="comment">% part a</span>
+A = [ 2 3 0 0 0 0 ; 0 0 1 0 0 0 ;
+      3 3 0 0 0 0 ; 0 0 5 5 5 5 ]
+[U,S,V] = svd(A)
+
+<span class="comment">% part b</span>
+SP = S;
+SP(3,3) = 0; <span class="comment">% set two smallest singular values to 0</span>
+SP(4,4) = 0
+B = U*SP*transpose(V) <span class="comment">% B is A'</span>
+AC = A - mean(A) <span class="comment">% center A</span>
+BC = B - mean(B) <span class="comment">% center B</span>
+<span class="comment">% variance of AC</span>
+x = norm(AC(:,1))^2 + norm(AC(:,2))^2 + norm(AC(:,3))^2 + norm(AC(:,4))^2 + norm(AC(:,5))^2 + norm(AC(:,6))^2
+<span class="comment">% variance of BC</span>
+y = norm(BC(:,1))^2 + norm(BC(:,2))^2 + norm(BC(:,3))^2 + norm(BC(:,4))^2 + norm(BC(:,5))^2 + norm(BC(:,6))^2
+y/x * 100 <span class="comment">% percent of variance preserved</span>
+</pre><pre class="codeoutput">
+A =
+
+     2     3     0     0     0     0
+     0     0     1     0     0     0
+     3     3     0     0     0     0
+     0     0     5     5     5     5
+
+
+U =
+
+         0   -0.6464         0    0.7630
+   -0.0503         0   -0.9987         0
+         0   -0.7630         0   -0.6464
+   -0.9987         0    0.0503         0
+
+
+S =
+
+   10.0126         0         0         0         0         0
+         0    5.5414         0         0         0         0
+         0         0    0.8649         0         0         0
+         0         0         0    0.5414         0         0
+
+
+V =
+
+   -0.0000   -0.6464   -0.0000   -0.7630         0         0
+    0.0000   -0.7630    0.0000    0.6464         0         0
+   -0.5038         0   -0.8638         0         0         0
+   -0.4987         0    0.2908         0   -0.5774   -0.5774
+   -0.4987         0    0.2908         0    0.7887   -0.2113
+   -0.4987         0    0.2908         0   -0.2113    0.7887
+
+
+SP =
+
+   10.0126         0         0         0         0         0
+         0    5.5414         0         0         0         0
+         0         0         0         0         0         0
+         0         0         0         0         0         0
+
+
+B =
+
+    2.3152    2.7330         0         0         0         0
+    0.0000   -0.0000    0.2538    0.2512    0.2512    0.2512
+    2.7330    3.2262         0         0         0         0
+    0.0000   -0.0000    5.0376    4.9873    4.9873    4.9873
+
+
+AC =
+
+    0.7500    1.5000   -1.5000   -1.2500   -1.2500   -1.2500
+   -1.2500   -1.5000   -0.5000   -1.2500   -1.2500   -1.2500
+    1.7500    1.5000   -1.5000   -1.2500   -1.2500   -1.2500
+   -1.2500   -1.5000    3.5000    3.7500    3.7500    3.7500
+
+
+BC =
+
+    1.0531    1.2432   -1.3228   -1.3096   -1.3096   -1.3096
+   -1.2620   -1.4898   -1.0691   -1.0584   -1.0584   -1.0584
+    1.4709    1.7364   -1.3228   -1.3096   -1.3096   -1.3096
+   -1.2620   -1.4898    3.7147    3.6777    3.6777    3.6777
+
+
+x =
+
+    89
+
+
+y =
+
+   88.1280
+
+
+ans =
+
+   99.0202
+
+</pre><h2 id="5">10.11</h2><pre class="codeinput"><span class="comment">% calculate the svd of the matrix</span>
+<span class="comment">% set all singular values less than 1 to 0</span>
+<span class="comment">% calculate the new matrix using U, the new sigma, and V</span>
+<span class="comment">% center both matrixes</span>
+<span class="comment">% calculate the variance of each matrix by adding the squares of the norms</span>
+<span class="comment">%       of each column of the matrices</span>
+<span class="comment">% divide the variance of the original matrix by the variance of the new</span>
+<span class="comment">%       matrix and see what percent of variance is preserved</span>
+<span class="comment">% if the variance is less than 99%</span>
+<span class="comment">%       repeat process but remove fewer singular values</span>
+<span class="comment">% if the variance is greater than 99%</span>
+<span class="comment">%       repeat process but remove more singular values</span>
+<span class="comment">% continue to repeat until variance is as close to 99% as possible</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Zain Bhaila
+% Math 401
+% Homework 5
+
+%% 9.1
+
+% on seperate sheet
+syms x;
+A = [ -1 0 2 2 2 ; 0 2 3 0 1 ; 1 2 -2 1 2]
+C = transpose(A)
+B = A*C
+y = det(B - x * eye(3))
+z = double(solve(y == 0, x))
+s = sqrt(z)
+[T,E] = eig(B)
+T = T*-1
+v1 = C * T(:,3)/norm(C * T(:,3))
+v2 = C * T(:,2)/norm(C * T(:,2))
+v3 = C * T(:,1)/norm(C * T(:,1))
+[U,S,V] = svd(A)
+
+%% 10.1
+p1 = [1 ; 2] % points
+p2 = [4 ; 3]
+p3 = [-1 ; -3]
+p4 = [-5 ; -8]
+hold on;
+axis([-10 10 -10 10])
+scatter(p1(1,1), p1(2,1)) % plot points
+scatter(p2(1,1), p2(2,1))
+scatter(p3(1,1), p3(2,1))
+scatter(p4(1,1), p4(2,1))
+A= [p1 p2 p3 p4] % matrix of points
+M = mean(A, 2) % average of points
+C = A - M % center matrix
+[U,S,V] = svd(C) % SVD of centered matrix
+% variance is greatest in direction of the first column of U
+plot([0 ; U(1,1) * 20], [0 ; U(2,1) * 20] , 'k') % plot variance line
+plot([0 ; U(1,1) * -20], [0 ; U(2,1) * -20] , 'k')
+
+%% 10.4
+
+% part a
+A = [ 2 3 0 0 0 0 ; 0 0 1 0 0 0 ;
+      3 3 0 0 0 0 ; 0 0 5 5 5 5 ]
+[U,S,V] = svd(A)
+
+% part b
+SP = S;
+SP(3,3) = 0; % set two smallest singular values to 0
+SP(4,4) = 0
+B = U*SP*transpose(V) % B is A'
+AC = A - mean(A) % center A
+BC = B - mean(B) % center B
+% variance of AC
+x = norm(AC(:,1))^2 + norm(AC(:,2))^2 + norm(AC(:,3))^2 + norm(AC(:,4))^2 + norm(AC(:,5))^2 + norm(AC(:,6))^2
+% variance of BC
+y = norm(BC(:,1))^2 + norm(BC(:,2))^2 + norm(BC(:,3))^2 + norm(BC(:,4))^2 + norm(BC(:,5))^2 + norm(BC(:,6))^2
+y/x * 100 % percent of variance preserved
+
+%% 10.11
+
+% calculate the svd of the matrix
+% set all singular values less than 1 to 0
+% calculate the new matrix using U, the new sigma, and V
+% center both matrixes
+% calculate the variance of each matrix by adding the squares of the norms
+%       of each column of the matrices
+% divide the variance of the original matrix by the variance of the new
+%       matrix and see what percent of variance is preserved
+% if the variance is less than 99%
+%       repeat process but remove fewer singular values
+% if the variance is greater than 99%
+%       repeat process but remove more singular values
+% continue to repeat until variance is as close to 99% as possible
+##### SOURCE END #####
+--></body></html>

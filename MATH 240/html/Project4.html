@@ -1,0 +1,967 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Project4</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-11-26"><meta name="DC.source" content="Project4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Problem 0</a></li><li><a href="#3">Problem 1</a></li><li><a href="#4">Problem 2</a></li><li><a href="#5">Problem 3</a></li><li><a href="#6">Problem 4</a></li><li><a href="#7">Problem 5</a></li><li><a href="#8">Problem 6</a></li></ul></div><pre class="codeinput"><span class="comment">% Zain Bhaila</span>
+<span class="comment">% Math 240 Fall 2018 Project 4</span>
+<span class="comment">% Section 0132</span>
+</pre><h2 id="2">Problem 0</h2><pre class="codeinput">format <span class="string">short</span>
+clock
+</pre><pre class="codeoutput">
+ans =
+
+   1.0e+03 *
+
+    2.0180    0.0110    0.0260         0    0.0190    0.0130
+
+</pre><h2 id="3">Problem 1</h2><pre class="codeinput">A = [345 -654 -928; 84 -158 -228; 66 -126 -176]
+
+<span class="comment">% Problem 1(a)</span>
+[P,D] = eig(A)
+
+<span class="comment">% Problem 1(b)</span>
+A == P * D * inv(P) <span class="comment">%#ok</span>
+
+<span class="comment">% Problem 1(c)</span>
+<span class="comment">% lambda = 6, v = [ .957 .2051 .2051 ]</span>
+<span class="comment">% lambda = 1, v = [ -.9456 -.291 -.1455 ]</span>
+<span class="comment">% lambda = 4, v = [ .9577 .1596 .2394 ]</span>
+</pre><pre class="codeoutput">
+A =
+
+   345  -654  -928
+    84  -158  -228
+    66  -126  -176
+
+
+P =
+
+    0.9570   -0.9456    0.9577
+    0.2051   -0.2910    0.1596
+    0.2051   -0.1455    0.2394
+
+
+D =
+
+    6.0000         0         0
+         0    1.0000         0
+         0         0    4.0000
+
+
+ans =
+
+  3&times;3 logical array
+
+   0   0   0
+   0   0   0
+   0   0   0
+
+</pre><h2 id="4">Problem 2</h2><pre class="codeinput">A = [-65 -39 -15; 100 60 23; 22 13 6]
+
+<span class="comment">% Problem 2(a)</span>
+A2 = A^2
+A3 = A^3
+A4 = A^4
+A5 = A^5
+A6 = A^6
+A7 = A^7
+A8 = A^8
+<span class="comment">% the values repeat after intervals of 4</span>
+
+<span class="comment">% Problem 2(b)</span>
+[P,D] = eig(A) <span class="comment">%#ok</span>
+
+<span class="comment">% Problem 2(c)</span>
+D
+D2 = D^2
+D3 = D^3
+D4 = D^4
+<span class="comment">% all the values have the same magnitude</span>
+<span class="comment">% the first and third powers have the same eigenvalues</span>
+<span class="comment">% the fourth power has one unique real eigenvalue</span>
+<span class="comment">% the second power has all real eigenvalues</span>
+
+<span class="comment">% Problem 2(d)</span>
+<span class="comment">% A^10000001 = A = [-65 -39 -15; 100 60 23; 22 13 6]</span>
+</pre><pre class="codeoutput">
+A =
+
+   -65   -39   -15
+   100    60    23
+    22    13     6
+
+
+A2 =
+
+    -5     0   -12
+     6    -1    18
+     2     0     5
+
+
+A3 =
+
+    61    39     3
+   -94   -60    -5
+   -20   -13     0
+
+
+A4 =
+
+     1     0     0
+     0     1     0
+     0     0     1
+
+
+A5 =
+
+   -65   -39   -15
+   100    60    23
+    22    13     6
+
+
+A6 =
+
+    -5     0   -12
+     6    -1    18
+     2     0     5
+
+
+A7 =
+
+    61    39     3
+   -94   -60    -5
+   -20   -13     0
+
+
+A8 =
+
+     1     0     0
+     0     1     0
+     0     0     1
+
+
+P =
+
+  -0.5361 + 0.0089i  -0.5361 - 0.0089i  -0.5345 + 0.0000i
+   0.8250 + 0.0000i   0.8250 + 0.0000i   0.8018 + 0.0000i
+   0.1787 - 0.0030i   0.1787 + 0.0030i   0.2673 + 0.0000i
+
+
+D =
+
+  -0.0000 + 1.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i  -0.0000 - 1.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+
+D =
+
+  -0.0000 + 1.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i  -0.0000 - 1.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+
+D2 =
+
+  -1.0000 - 0.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i  -1.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+
+D3 =
+
+   0.0000 - 1.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 1.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+
+D4 =
+
+   1.0000 + 0.0000i   0.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   1.0000 - 0.0000i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+</pre><h2 id="5">Problem 3</h2><pre class="codeinput">A = [3 1 ; 0 3]
+
+<span class="comment">% Problem 3(a)</span>
+[P,D] = eig(A)
+
+<span class="comment">% Problem 3(b)</span>
+A == P * D * inv(P) <span class="comment">%#ok</span>
+
+<span class="comment">% Problem 3(c)</span>
+A_space = null(A - 3*eye(2))
+
+<span class="comment">% Problem 3(d)</span>
+<span class="comment">% No, there is not a basis.</span>
+<span class="comment">% A must have 2 distinct eignvalues in order to be</span>
+<span class="comment">% diagonalizable. A only has one distinct eigenvalue, and</span>
+<span class="comment">% thus is not diagonalizable.</span>
+</pre><pre class="codeoutput">
+A =
+
+     3     1
+     0     3
+
+
+P =
+
+    1.0000   -1.0000
+         0    0.0000
+
+
+D =
+
+     3     0
+     0     3
+
+
+ans =
+
+  2&times;2 logical array
+
+   1   0
+   1   1
+
+
+A_space =
+
+    -1
+     0
+
+</pre><h2 id="6">Problem 4</h2><pre class="codeinput">A = [ 3 0 3 ; -1 -1 -2 ; 0 1 2 ; 5 2 0]
+
+<span class="comment">% Problem 4(a)</span>
+dot(A(:,1),A(:,2))
+dot(A(:,3),A(:,3))
+
+<span class="comment">% Problem 4(b)</span>
+transpose(A) * A
+
+<span class="comment">% Problem 4(c)</span>
+<span class="comment">% The i,j entry of A^T * A is the dot product of the</span>
+<span class="comment">% ith column and jth column of A.</span>
+
+<span class="comment">% Problem 4(d)</span>
+<span class="comment">% The i,j entry of A * A^T is the dot product of the</span>
+<span class="comment">% ith row and jth row of A.</span>
+
+<span class="comment">% Problem 4(e)</span>
+A * transpose(A)
+dot(A(1,:),A(1,:))
+dot(A(4,:),A(4,:))
+
+<span class="comment">% Problem 4(f)</span>
+Q = [1/sqrt(14) 1/sqrt(3) 5/sqrt(42) ;
+     2/sqrt(14) 1/sqrt(3) -4/sqrt(42) ;
+     3/sqrt(14) -1/sqrt(3) 1/sqrt(42)]
+transpose(Q) * Q
+
+<span class="comment">% Problem 4(g)</span>
+<span class="comment">% The dot products of two columns i,j where i = j</span>
+<span class="comment">% are 1, meaning they are unit vectors.</span>
+<span class="comment">% The dot products of two columns i,j where i =/= j</span>
+<span class="comment">% are 0, meaning they are orthogonal.</span>
+
+<span class="comment">% Problem 4(h)</span>
+<span class="comment">% If Q^T * Q = I then I = Q * Q^T. If</span>
+<span class="comment">% Q * Q^T = I, and the dot products of the rows</span>
+<span class="comment">% of Q form Q * Q^T, then the rows form an orthonormal set.</span>
+</pre><pre class="codeoutput">
+A =
+
+     3     0     3
+    -1    -1    -2
+     0     1     2
+     5     2     0
+
+
+ans =
+
+    11
+
+
+ans =
+
+    17
+
+
+ans =
+
+    35    11    11
+    11     6     4
+    11     4    17
+
+
+ans =
+
+    18    -9     6    15
+    -9     6    -5    -7
+     6    -5     5     2
+    15    -7     2    29
+
+
+ans =
+
+    18
+
+
+ans =
+
+    29
+
+
+Q =
+
+    0.2673    0.5774    0.7715
+    0.5345    0.5774   -0.6172
+    0.8018   -0.5774    0.1543
+
+
+ans =
+
+    1.0000    0.0000   -0.0000
+    0.0000    1.0000   -0.0000
+   -0.0000   -0.0000    1.0000
+
+</pre><h2 id="7">Problem 5</h2><p>Problem 5(a)</p><pre class="codeinput">v1 = [ -5; -2; 13; 7; -5 ]
+v2 = [ 3; 5; -3; -11; -6 ]
+v3 = [ 3; 24; -9; -15; 3 ]
+v4 = [ 1; -16; 3; 13; 1 ]
+
+<span class="comment">% Problem 5(b)</span>
+A = [v1 v2 v3 v4]
+rank(A)
+<span class="comment">% A basis is a set of linearly independent vectors and</span>
+<span class="comment">% the rank is equivalent to the dimension of the column</span>
+<span class="comment">% space. Since the rank of of A is 4, its columns are lin indep</span>
+<span class="comment">% meaning they form a basis for W.</span>
+
+<span class="comment">% Problem 5(c)</span>
+w1 = v1
+w2 = v2 - dot(w1,v2)/dot(w1,w1)*w1
+
+<span class="comment">% Problem 5(d)</span>
+w3 = v3 - dot(w1,v3)/dot(w1,w1)*w1 - dot(w2,v3)/dot(w2,w2)*w2
+w4 = v4 - dot(w1,v4)/dot(w1,w1)*w1 - dot(w2,v4)/dot(w2,w2)*w2 - dot(w3,v4)/dot(w3,w3)*w3
+
+<span class="comment">% Problem 5(e)</span>
+u1 = w1/norm(w1)
+u2 = w2/norm(w2)
+u3 = w3/norm(w3)
+u4 = w4/norm(w4)
+
+<span class="comment">% Problem 5(f)</span>
+Q = [u1 u2 u3 u4]
+transpose(Q) * Q
+
+<span class="comment">% Problem 5(g)</span>
+R = transpose(Q) * A <span class="comment">%#ok</span>
+
+<span class="comment">% Problem 5(h)</span>
+[Q1, R1] = qr(A,0)
+</pre><pre class="codeoutput">
+v1 =
+
+    -5
+    -2
+    13
+     7
+    -5
+
+
+v2 =
+
+     3
+     5
+    -3
+   -11
+    -6
+
+
+v3 =
+
+     3
+    24
+    -9
+   -15
+     3
+
+
+v4 =
+
+     1
+   -16
+     3
+    13
+     1
+
+
+A =
+
+    -5     3     3     1
+    -2     5    24   -16
+    13    -3    -9     3
+     7   -11   -15    13
+    -5    -6     3     1
+
+
+ans =
+
+     4
+
+
+w1 =
+
+    -5
+    -2
+    13
+     7
+    -5
+
+
+w2 =
+
+    0.9596
+    4.1838
+    2.3051
+   -8.1434
+   -8.0404
+
+
+w3 =
+
+   -3.6347
+   16.9106
+    2.6476
+    2.2258
+    6.8704
+
+
+w4 =
+
+    2.5295
+    0.6709
+    0.0153
+    1.4147
+   -0.7774
+
+
+u1 =
+
+   -0.3032
+   -0.1213
+    0.7882
+    0.4244
+   -0.3032
+
+
+u2 =
+
+    0.0771
+    0.3364
+    0.1853
+   -0.6547
+   -0.6464
+
+
+u3 =
+
+   -0.1920
+    0.8933
+    0.1399
+    0.1176
+    0.3629
+
+
+u4 =
+
+    0.8227
+    0.2182
+    0.0050
+    0.4601
+   -0.2528
+
+
+Q =
+
+   -0.3032    0.0771   -0.1920    0.8227
+   -0.1213    0.3364    0.8933    0.2182
+    0.7882    0.1853    0.1399    0.0050
+    0.4244   -0.6547    0.1176    0.4601
+   -0.3032   -0.6464    0.3629   -0.2528
+
+
+ans =
+
+    1.0000   -0.0000    0.0000    0.0000
+   -0.0000    1.0000    0.0000    0.0000
+    0.0000    0.0000    1.0000    0.0000
+    0.0000    0.0000    0.0000    1.0000
+
+
+R =
+
+   16.4924   -6.7304  -18.1902    9.2164
+   -0.0000   12.4379   14.5180  -13.9067
+    0.0000    0.0000   18.9300  -12.1741
+    0.0000    0.0000    0.0000    3.0748
+
+
+Q1 =
+
+   -0.3032   -0.0771   -0.1920   -0.8227
+   -0.1213   -0.3364    0.8933   -0.2182
+    0.7882   -0.1853    0.1399   -0.0050
+    0.4244    0.6547    0.1176   -0.4601
+   -0.3032    0.6464    0.3629    0.2528
+
+
+R1 =
+
+   16.4924   -6.7304  -18.1902    9.2164
+         0  -12.4379  -14.5180   13.9067
+         0         0   18.9300  -12.1741
+         0         0         0   -3.0748
+
+</pre><h2 id="8">Problem 6</h2><pre class="codeinput"><span class="comment">% Problem 6(a)</span>
+A = [2 3 -2 -1 2; 0 2 4 2 -2; 3 5 -2 -1 3; 5 9 -2 -1 2;
+    0 -3 -6 -3 5; 1 4 4 2 0]
+rank(A)
+
+<span class="comment">% Problem 6(b)</span>
+rref(A)
+basis = [A(:,1),A(:,2),A(:,5)] <span class="comment">% treat as a set of vectors</span>
+
+<span class="comment">% Problem 6(c)</span>
+B = basis
+[Q,R] = qr(B,0)
+W_orth = Q
+
+<span class="comment">% Problem 6(d)</span>
+E = Q * transpose(Q)
+v = [ 1 ; 1 ; 1 ; 1 ; 1 ; 1 ]
+a1 = dot(v,E(:,1))/dot(E(:,1),E(:,1)) * E(:,1) + dot(v,E(:,2))/dot(E(:,2),E(:,2)) * E(:,2);
+a2 = dot(v,E(:,3))/dot(E(:,3),E(:,3)) * E(:,3) + dot(v,E(:,4))/dot(E(:,4),E(:,4)) * E(:,4);
+a3 = dot(v,E(:,5))/dot(E(:,5),E(:,5)) * E(:,5) + dot(v,E(:,6))/dot(E(:,6),E(:,6)) * E(:,6);
+proj_v = a1 + a2 + a3 <span class="comment">% it didnt all fit into one line</span>
+
+<span class="comment">% Problem 6(e)</span>
+W_perp = null(transpose(B))
+
+<span class="comment">% Problem 6(f)</span>
+[Q2,R2] = qr(W_perp,0)
+W_perp_orth = Q2
+
+<span class="comment">% Problem 6(g)</span>
+F = W_perp_orth * transpose(W_perp_orth)
+E+F
+</pre><pre class="codeoutput">
+A =
+
+     2     3    -2    -1     2
+     0     2     4     2    -2
+     3     5    -2    -1     3
+     5     9    -2    -1     2
+     0    -3    -6    -3     5
+     1     4     4     2     0
+
+
+ans =
+
+     3
+
+
+ans =
+
+     1     0    -4    -2     0
+     0     1     2     1     0
+     0     0     0     0     1
+     0     0     0     0     0
+     0     0     0     0     0
+     0     0     0     0     0
+
+
+basis =
+
+     2     3     2
+     0     2    -2
+     3     5     3
+     5     9     2
+     0    -3     5
+     1     4     0
+
+
+B =
+
+     2     3     2
+     0     2    -2
+     3     5     3
+     5     9     2
+     0    -3     5
+     1     4     0
+
+
+Q =
+
+   -0.3203    0.1376   -0.0491
+         0   -0.4668   -0.1143
+   -0.4804    0.0898   -0.2817
+   -0.8006   -0.0060    0.3298
+         0    0.7002   -0.5463
+   -0.1601   -0.5146   -0.7057
+
+
+R =
+
+   -6.2450  -11.2090   -3.6829
+         0   -4.2847    4.9669
+         0         0   -2.7866
+
+
+W_orth =
+
+   -0.3203    0.1376   -0.0491
+         0   -0.4668   -0.1143
+   -0.4804    0.0898   -0.2817
+   -0.8006   -0.0060    0.3298
+         0    0.7002   -0.5463
+   -0.1601   -0.5146   -0.7057
+
+
+E =
+
+    0.1239   -0.0586    0.1800    0.2394    0.1232    0.0151
+   -0.0586    0.2309   -0.0097   -0.0349   -0.2644    0.3209
+    0.1800   -0.0097    0.3182    0.2912    0.2167    0.2295
+    0.2394   -0.0349    0.2912    0.7498   -0.1844   -0.1014
+    0.1232   -0.2644    0.2167   -0.1844    0.7887    0.0252
+    0.0151    0.3209    0.2295   -0.1014    0.0252    0.7885
+
+
+v =
+
+     1
+     1
+     1
+     1
+     1
+     1
+
+
+proj_v =
+
+    1.7110
+    0.0909
+    3.0616
+    2.9282
+    1.7535
+    2.3865
+
+
+W_perp =
+
+   -0.9181    0.1406    0.1158
+   -0.0449    0.6271   -0.6113
+    0.0337   -0.5667   -0.5997
+    0.3345    0.2974    0.2234
+    0.1953    0.4157   -0.0204
+    0.0628   -0.0680    0.4505
+
+
+Q2 =
+
+   -0.9181   -0.1406    0.1158
+   -0.0449   -0.6271   -0.6113
+    0.0337    0.5667   -0.5997
+    0.3345   -0.2974    0.2234
+    0.1953   -0.4157   -0.0204
+    0.0628    0.0680    0.4505
+
+
+R2 =
+
+    1.0000    0.0000         0
+         0   -1.0000    0.0000
+         0         0    1.0000
+
+
+W_perp_orth =
+
+   -0.9181   -0.1406    0.1158
+   -0.0449   -0.6271   -0.6113
+    0.0337    0.5667   -0.5997
+    0.3345   -0.2974    0.2234
+    0.1953   -0.4157   -0.0204
+    0.0628    0.0680    0.4505
+
+
+F =
+
+    0.8761    0.0586   -0.1800   -0.2394   -0.1232   -0.0151
+    0.0586    0.7691    0.0097    0.0349    0.2644   -0.3209
+   -0.1800    0.0097    0.6818   -0.2912   -0.2167   -0.2295
+   -0.2394    0.0349   -0.2912    0.2502    0.1844    0.1014
+   -0.1232    0.2644   -0.2167    0.1844    0.2113   -0.0252
+   -0.0151   -0.3209   -0.2295    0.1014   -0.0252    0.2115
+
+
+ans =
+
+    1.0000    0.0000   -0.0000   -0.0000    0.0000    0.0000
+    0.0000    1.0000   -0.0000   -0.0000    0.0000    0.0000
+   -0.0000   -0.0000    1.0000         0    0.0000   -0.0000
+   -0.0000   -0.0000         0    1.0000   -0.0000         0
+    0.0000    0.0000    0.0000   -0.0000    1.0000    0.0000
+    0.0000    0.0000   -0.0000         0    0.0000    1.0000
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Zain Bhaila
+% Math 240 Fall 2018 Project 4
+% Section 0132
+
+%% Problem 0
+format short
+clock
+
+%% Problem 1
+A = [345 -654 -928; 84 -158 -228; 66 -126 -176]
+
+% Problem 1(a)
+[P,D] = eig(A)
+
+% Problem 1(b)
+A == P * D * inv(P) %#ok
+
+% Problem 1(c)
+% lambda = 6, v = [ .957 .2051 .2051 ]
+% lambda = 1, v = [ -.9456 -.291 -.1455 ]
+% lambda = 4, v = [ .9577 .1596 .2394 ]
+
+%% Problem 2
+A = [-65 -39 -15; 100 60 23; 22 13 6]
+
+% Problem 2(a)
+A2 = A^2
+A3 = A^3
+A4 = A^4
+A5 = A^5
+A6 = A^6
+A7 = A^7
+A8 = A^8
+% the values repeat after intervals of 4
+
+% Problem 2(b)
+[P,D] = eig(A) %#ok
+
+% Problem 2(c)
+D
+D2 = D^2
+D3 = D^3
+D4 = D^4
+% all the values have the same magnitude
+% the first and third powers have the same eigenvalues
+% the fourth power has one unique real eigenvalue
+% the second power has all real eigenvalues
+
+% Problem 2(d)
+% A^10000001 = A = [-65 -39 -15; 100 60 23; 22 13 6]
+
+%% Problem 3
+A = [3 1 ; 0 3]
+
+% Problem 3(a)
+[P,D] = eig(A)
+
+% Problem 3(b)
+A == P * D * inv(P) %#ok
+
+% Problem 3(c)
+A_space = null(A - 3*eye(2))
+
+% Problem 3(d)
+% No, there is not a basis. 
+% A must have 2 distinct eignvalues in order to be 
+% diagonalizable. A only has one distinct eigenvalue, and
+% thus is not diagonalizable.
+
+%% Problem 4
+A = [ 3 0 3 ; -1 -1 -2 ; 0 1 2 ; 5 2 0]
+
+% Problem 4(a)
+dot(A(:,1),A(:,2))
+dot(A(:,3),A(:,3))
+
+% Problem 4(b)
+transpose(A) * A
+
+% Problem 4(c)
+% The i,j entry of A^T * A is the dot product of the 
+% ith column and jth column of A.
+
+% Problem 4(d)
+% The i,j entry of A * A^T is the dot product of the 
+% ith row and jth row of A.
+
+% Problem 4(e)
+A * transpose(A)
+dot(A(1,:),A(1,:))
+dot(A(4,:),A(4,:))
+
+% Problem 4(f)
+Q = [1/sqrt(14) 1/sqrt(3) 5/sqrt(42) ; 
+     2/sqrt(14) 1/sqrt(3) -4/sqrt(42) ;
+     3/sqrt(14) -1/sqrt(3) 1/sqrt(42)]
+transpose(Q) * Q
+
+% Problem 4(g)
+% The dot products of two columns i,j where i = j
+% are 1, meaning they are unit vectors.
+% The dot products of two columns i,j where i =/= j
+% are 0, meaning they are orthogonal.
+
+% Problem 4(h)
+% If Q^T * Q = I then I = Q * Q^T. If 
+% Q * Q^T = I, and the dot products of the rows
+% of Q form Q * Q^T, then the rows form an orthonormal set.
+
+%% Problem 5
+% Problem 5(a)
+v1 = [ -5; -2; 13; 7; -5 ]
+v2 = [ 3; 5; -3; -11; -6 ]
+v3 = [ 3; 24; -9; -15; 3 ]
+v4 = [ 1; -16; 3; 13; 1 ]
+
+% Problem 5(b)
+A = [v1 v2 v3 v4]
+rank(A)
+% A basis is a set of linearly independent vectors and
+% the rank is equivalent to the dimension of the column
+% space. Since the rank of of A is 4, its columns are lin indep
+% meaning they form a basis for W.
+
+% Problem 5(c)
+w1 = v1
+w2 = v2 - dot(w1,v2)/dot(w1,w1)*w1
+
+% Problem 5(d)
+w3 = v3 - dot(w1,v3)/dot(w1,w1)*w1 - dot(w2,v3)/dot(w2,w2)*w2
+w4 = v4 - dot(w1,v4)/dot(w1,w1)*w1 - dot(w2,v4)/dot(w2,w2)*w2 - dot(w3,v4)/dot(w3,w3)*w3
+
+% Problem 5(e)
+u1 = w1/norm(w1)
+u2 = w2/norm(w2)
+u3 = w3/norm(w3)
+u4 = w4/norm(w4)
+
+% Problem 5(f)
+Q = [u1 u2 u3 u4]
+transpose(Q) * Q
+
+% Problem 5(g)
+R = transpose(Q) * A %#ok
+
+% Problem 5(h)
+[Q1, R1] = qr(A,0)
+
+%% Problem 6
+
+% Problem 6(a)
+A = [2 3 -2 -1 2; 0 2 4 2 -2; 3 5 -2 -1 3; 5 9 -2 -1 2;
+    0 -3 -6 -3 5; 1 4 4 2 0]
+rank(A)
+
+% Problem 6(b)
+rref(A)
+basis = [A(:,1),A(:,2),A(:,5)] % treat as a set of vectors
+
+% Problem 6(c)
+B = basis
+[Q,R] = qr(B,0)
+W_orth = Q
+
+% Problem 6(d)
+E = Q * transpose(Q)
+v = [ 1 ; 1 ; 1 ; 1 ; 1 ; 1 ]
+a1 = dot(v,E(:,1))/dot(E(:,1),E(:,1)) * E(:,1) + dot(v,E(:,2))/dot(E(:,2),E(:,2)) * E(:,2); 
+a2 = dot(v,E(:,3))/dot(E(:,3),E(:,3)) * E(:,3) + dot(v,E(:,4))/dot(E(:,4),E(:,4)) * E(:,4); 
+a3 = dot(v,E(:,5))/dot(E(:,5),E(:,5)) * E(:,5) + dot(v,E(:,6))/dot(E(:,6),E(:,6)) * E(:,6);
+proj_v = a1 + a2 + a3 % it didnt all fit into one line
+
+% Problem 6(e)
+W_perp = null(transpose(B))
+
+% Problem 6(f)
+[Q2,R2] = qr(W_perp,0)
+W_perp_orth = Q2
+
+% Problem 6(g)
+F = W_perp_orth * transpose(W_perp_orth)
+E+F
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,431 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Homework1</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-17"><meta name="DC.source" content="Homework1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">2.2</a></li><li><a href="#3">2.5</a></li><li><a href="#4">2.9</a></li><li><a href="#5">2.17</a></li><li><a href="#6">2.19</a></li></ul></div><pre class="codeinput"><span class="comment">% Zain Bhaila</span>
+<span class="comment">% Math 401</span>
+<span class="comment">% Homework 1</span>
+</pre><h2 id="2">2.2</h2><pre class="codeinput">M = [.3157 .947; .6314 .1263] <span class="comment">% consumption matrix</span>
+A = eye(2) - M <span class="comment">% I - M</span>
+eig(A) <span class="comment">% eigenvalues of I - M</span>
+<span class="comment">% since I - M is not invertible (eigenvalue of 0) and d=0</span>
+<span class="comment">% the answer is any multiple of p where p is an eigenvector of M associated</span>
+<span class="comment">% with lambda = 1</span>
+[V,D] = eig(M) <span class="comment">% eigenvalues and eigenvectors of M</span>
+p1 = V(:,1) <span class="comment">% production vector 1</span>
+p2 = p1 * 3 <span class="comment">%#ok production vector 2</span>
+</pre><pre class="codeoutput">
+M =
+
+    0.3157    0.9470
+    0.6314    0.1263
+
+
+A =
+
+    0.6843   -0.9470
+   -0.6314    0.8737
+
+
+ans =
+
+   -0.0000
+    1.5580
+
+
+V =
+
+    0.8105   -0.7350
+    0.5857    0.6781
+
+
+D =
+
+    1.0000         0
+         0   -0.5580
+
+
+p1 =
+
+    0.8105
+    0.5857
+
+
+p2 =
+
+    2.4316
+    1.7571
+
+</pre><h2 id="3">2.5</h2><pre class="codeinput">M = [.22 .15 ; .16 .26] <span class="comment">% consumption matrix</span>
+
+<span class="comment">% part a</span>
+A = eye(2) - M <span class="comment">% I - M</span>
+eig(A) <span class="comment">% eigenvalues of I - M</span>
+<span class="comment">% I - M is invertible and d =/= 0</span>
+<span class="comment">% thus p = (I-M)^-1 * d</span>
+d = [120 ; 150] <span class="comment">% external demand</span>
+p = A\d <span class="comment">% (I-M)^-1 * d</span>
+
+<span class="comment">% part b</span>
+M * p <span class="comment">%  internal demand</span>
+<span class="comment">% the economy is not efficient as a significant portion of the production</span>
+<span class="comment">% goes towards internal demand</span>
+
+<span class="comment">% part c</span>
+M2 = [.022 .015 ; .016 .026] <span class="comment">% consumption matrix</span>
+A2 = eye(2) - M2 <span class="comment">% I - M</span>
+eig(A2) <span class="comment">% eigenvalues of I - M</span>
+<span class="comment">% I - M is invertible and d =/= 0</span>
+<span class="comment">% thus p = (I-M)^-1 * d</span>
+d2 = [120 ; 150] <span class="comment">% external demand</span>
+p2 = A2\d2 <span class="comment">% (I-M)^-1 * d</span>
+M2 * p2 <span class="comment">% internal demand</span>
+<span class="comment">% this economy is efficient, as a relatively small</span>
+<span class="comment">% amount of product is used for internal demand</span>
+
+<span class="comment">% part d</span>
+B = inv(A) <span class="comment">% (I-M)^-1</span>
+<span class="comment">% if external demand for sector 1 changes by 1 then the first entry</span>
+<span class="comment">% in column 1 of B indicates the change of production that must occur in</span>
+<span class="comment">% sector 1 to keep up with demand</span>
+<span class="comment">% if external demand for sector 2 changes by 1 then the first entry</span>
+<span class="comment">% in column 2 of B indicates the change of production that must occur in</span>
+<span class="comment">% sector 1 to keep up with deman</span>
+</pre><pre class="codeoutput">
+M =
+
+    0.2200    0.1500
+    0.1600    0.2600
+
+
+A =
+
+    0.7800   -0.1500
+   -0.1600    0.7400
+
+
+ans =
+
+    0.9162
+    0.6038
+
+
+d =
+
+   120
+   150
+
+
+p =
+
+  201.1931
+  246.2039
+
+
+ans =
+
+   81.1931
+   96.2039
+
+
+M2 =
+
+    0.0220    0.0150
+    0.0160    0.0260
+
+
+A2 =
+
+    0.9780   -0.0150
+   -0.0160    0.9740
+
+
+ans =
+
+    0.9916
+    0.9604
+
+
+d2 =
+
+   120
+   150
+
+
+p2 =
+
+  125.0929
+  156.0590
+
+
+ans =
+
+    5.0929
+    6.0590
+
+
+B =
+
+    1.3377    0.2711
+    0.2892    1.4100
+
+</pre><h2 id="4">2.9</h2><pre class="codeinput">M = [.1 .06 ; .05 .12] <span class="comment">% consumption matrix</span>
+
+<span class="comment">% part a</span>
+eig(M) <span class="comment">% show that infinite sum is valid</span>
+(eye(2) + M + M^2 + M^3 + M^4 + M^5) == (eye(2) + M + M^2 + M^3 + M^4) <span class="comment">%#ok returns zero matrix if equal to the fourth digit</span>
+
+<span class="comment">% part b</span>
+A = eye(2) + M + M^2 + M^3 + M^4 + M^5 <span class="comment">%#ok matrix from part a</span>
+
+<span class="comment">% part c</span>
+<span class="comment">% we can say that (I-M)^-1 is approximately the same as</span>
+<span class="comment">% the matrix A found in part b</span>
+</pre><pre class="codeoutput">
+M =
+
+    0.1000    0.0600
+    0.0500    0.1200
+
+
+ans =
+
+    0.0543
+    0.1657
+
+
+ans =
+
+  2&times;2 logical array
+
+   0   0
+   0   0
+
+
+A =
+
+    1.1153    0.0760
+    0.0634    1.1407
+
+</pre><h2 id="5">2.17</h2><pre class="codeinput"><span class="comment">% part a</span>
+<span class="comment">% you can find M by inverting (I-M)^-1, then</span>
+<span class="comment">% you subtract I from the result, then multiply by -1</span>
+<span class="comment">% M = (((I-M)^-1)^-1 - I) * -1</span>
+
+<span class="comment">% part b</span>
+A = [1.06 .02 .04 ; .02 1.06 .09 ; .11 .02 1.03] <span class="comment">% (I-M)^-1</span>
+M = (inv(A) - eye(3)) * -1 <span class="comment">%#ok consumption matrix</span>
+</pre><pre class="codeoutput">
+A =
+
+    1.0600    0.0200    0.0400
+    0.0200    1.0600    0.0900
+    0.1100    0.0200    1.0300
+
+
+M =
+
+    0.0526    0.0172    0.0353
+    0.0093    0.0549    0.0822
+    0.1010    0.0165    0.0238
+
+</pre><h2 id="6">2.19</h2><pre class="codeinput"><span class="comment">% part a</span>
+syms <span class="string">x</span> <span class="string">y</span>;
+M = [.1 .2 ; x .05] <span class="comment">% consumption matrix</span>
+a = det(eye(2) - M) <span class="comment">% determinant of I - M</span>
+solve(a == 0, x) <span class="comment">% upper bound for x</span>
+<span class="comment">% for x to be valid, it must be less than 4.275 (171/40)</span>
+<span class="comment">% this is because for an economy too be sensible the determinant must be a</span>
+<span class="comment">% positive number</span>
+
+<span class="comment">% part b</span>
+M = [.1 y ; x .05] <span class="comment">% consumption matrix</span>
+det(eye(2) - M) <span class="comment">% determinant of I - M</span>
+<span class="comment">% x * y must be less than 0.855 (171/200)</span>
+</pre><pre class="codeoutput"> 
+M =
+ 
+[ 1/10,  1/5]
+[    x, 1/20]
+ 
+ 
+a =
+ 
+171/200 - x/5
+ 
+ 
+ans =
+ 
+171/40
+ 
+ 
+M =
+ 
+[ 1/10,    y]
+[    x, 1/20]
+ 
+ 
+ans =
+ 
+171/200 - x*y
+ 
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Zain Bhaila
+% Math 401
+% Homework 1
+
+%% 2.2
+M = [.3157 .947; .6314 .1263] % consumption matrix
+A = eye(2) - M % I - M
+eig(A) % eigenvalues of I - M
+% since I - M is not invertible (eigenvalue of 0) and d=0
+% the answer is any multiple of p where p is an eigenvector of M associated
+% with lambda = 1
+[V,D] = eig(M) % eigenvalues and eigenvectors of M
+p1 = V(:,1) % production vector 1
+p2 = p1 * 3 %#ok production vector 2
+
+%% 2.5
+M = [.22 .15 ; .16 .26] % consumption matrix
+
+% part a
+A = eye(2) - M % I - M
+eig(A) % eigenvalues of I - M
+% I - M is invertible and d =/= 0
+% thus p = (I-M)^-1 * d
+d = [120 ; 150] % external demand
+p = A\d % (I-M)^-1 * d
+
+% part b
+M * p %  internal demand
+% the economy is not efficient as a significant portion of the production
+% goes towards internal demand
+
+% part c
+M2 = [.022 .015 ; .016 .026] % consumption matrix
+A2 = eye(2) - M2 % I - M
+eig(A2) % eigenvalues of I - M
+% I - M is invertible and d =/= 0
+% thus p = (I-M)^-1 * d
+d2 = [120 ; 150] % external demand
+p2 = A2\d2 % (I-M)^-1 * d
+M2 * p2 % internal demand
+% this economy is efficient, as a relatively small
+% amount of product is used for internal demand
+
+% part d
+B = inv(A) % (I-M)^-1
+% if external demand for sector 1 changes by 1 then the first entry
+% in column 1 of B indicates the change of production that must occur in
+% sector 1 to keep up with demand
+% if external demand for sector 2 changes by 1 then the first entry
+% in column 2 of B indicates the change of production that must occur in
+% sector 1 to keep up with deman
+
+%% 2.9
+M = [.1 .06 ; .05 .12] % consumption matrix
+
+% part a
+eig(M) % show that infinite sum is valid
+(eye(2) + M + M^2 + M^3 + M^4 + M^5) == (eye(2) + M + M^2 + M^3 + M^4) %#ok returns zero matrix if equal to the fourth digit
+
+% part b
+A = eye(2) + M + M^2 + M^3 + M^4 + M^5 %#ok matrix from part a
+
+% part c
+% we can say that (I-M)^-1 is approximately the same as
+% the matrix A found in part b
+
+%% 2.17
+
+% part a
+% you can find M by inverting (I-M)^-1, then
+% you subtract I from the result, then multiply by -1
+% M = (((I-M)^-1)^-1 - I) * -1
+
+% part b
+A = [1.06 .02 .04 ; .02 1.06 .09 ; .11 .02 1.03] % (I-M)^-1
+M = (inv(A) - eye(3)) * -1 %#ok consumption matrix
+
+%% 2.19
+
+% part a
+syms x y;
+M = [.1 .2 ; x .05] % consumption matrix
+a = det(eye(2) - M) % determinant of I - M
+solve(a == 0, x) % upper bound for x
+% for x to be valid, it must be less than 4.275 (171/40)
+% this is because for an economy too be sensible the determinant must be a
+% positive number
+
+% part b
+M = [.1 y ; x .05] % consumption matrix
+det(eye(2) - M) % determinant of I - M
+% x * y must be less than 0.855 (171/200)
+##### SOURCE END #####
+--></body></html>
